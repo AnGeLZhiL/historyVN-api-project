@@ -101,4 +101,11 @@ class UserController extends Controller
             ->json($usertests->tests)
             ->setStatusCode(200, 'Object information');
     }
+
+    public function getUser(){
+        $user = User::where('id_user', Auth::id())->get();
+        return response()
+            ->json($user)
+            ->setStatusCode(200, 'User informations');
+    }
 }
