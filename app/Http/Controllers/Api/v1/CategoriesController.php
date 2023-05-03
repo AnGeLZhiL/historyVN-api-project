@@ -14,7 +14,7 @@ class CategoriesController extends Controller
          * Поиск категорий по заданому id сборника
          */
 
-        $collections = Category::where('collection_id', $id)->get();
+        $collections = Category::with('images')->findOrFail($id);;
 
         /*
          * При указанном id после / возвращается список категорий определенного сборника
@@ -22,7 +22,7 @@ class CategoriesController extends Controller
          */
 
         return response()
-            ->json($id?$collections:Category::all())
+            ->json($id?$collections:Category::with('images')->get())
             ->setStatusCode(200, "Categories list");
     }
 }
