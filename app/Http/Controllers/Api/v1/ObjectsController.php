@@ -44,7 +44,7 @@ class ObjectsController extends Controller
          * Получение списка объектов по заданому id каталога
          */
 
-        $object = Objects::with('tests')->findOrFail($id);
+        $object = Objects::with('tests' ,'images')->findOrFail($id);
 
         /*
          * Возвращает список объектов

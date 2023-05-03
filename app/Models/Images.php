@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Images extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id_image';
 
     public function user() : HasOne{
         return $this->hasOne(User::class, 'image_id', 'id_image');

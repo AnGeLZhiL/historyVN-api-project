@@ -20,4 +20,14 @@ class Objects extends Model
             'test_id'
         );
     }
+
+    public function images() : BelongsToMany
+    {
+        return $this->belongsToMany(
+            Images::class,
+            'object_image',
+            'object_id',
+            'image_id'
+        );
+    }
 }
