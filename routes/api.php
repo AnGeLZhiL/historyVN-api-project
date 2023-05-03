@@ -41,6 +41,7 @@ Route::post('/login', [UserController::class, 'login']); //Login
 
 Route::middleware('auth:api')->get('/testsuser', [UserController::class, 'userTests']);
 Route::middleware('auth:api')->get('/user', [UserController::class, 'getUser']);
+Route::middleware('auth:api')->put('/user-update', [UserController::class, 'userUpdate']);
 
 //Route::middleware('auth')->get('/testsuser', [UserController::class, 'userTests']);
 

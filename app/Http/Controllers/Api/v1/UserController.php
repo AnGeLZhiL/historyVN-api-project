@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Tests;
 use App\Models\User;
 use App\Http\Requests\LoginUserRequest;
@@ -91,6 +92,55 @@ class UserController extends Controller
                 ->json([
                     "status" => false
                 ],401);
+        }
+    }
+
+    /**
+     * Изменение данных пользователя
+     * @param UpdateUserRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function userUpdate(UpdateUserRequest $request){
+
+        /*
+         * Поиск пользователя по введенному токену
+         */
+
+        $user = User::find(Auth::id());
+
+        /*
+         * Заполнение новыми значениями
+         */
+
+        $user->last_name = $request->last_name;
+        $user->first_name = $request->first_name;
+        $user->midlle_name = $request->midlle_name;
+        $user->login = $request->login;
+        $user->birthday = $request->birthday;
+
+        /*
+         * Сохранение новых данных
+         */
+
+        $result = $user->save();
+
+        /*
+         * Проверка
+         */
+
+        if($result){
+            return response()
+                ->json([
+                    "status" => true
+                ])
+                ->setStatusCode(200, "Update");
+        } else {
+            return response()
+                ->json([
+                    "status" => false
+                ])
+                ->setStatusCode(401, "Not update");
         }
     }
 
