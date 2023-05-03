@@ -20,7 +20,7 @@ class CitiesController extends Controller
          */
 
         return response()
-            ->json(City::all())
+            ->json(City::with('images')->get())
             ->setStatusCode(200, "Cities list");
     }
 }
