@@ -15,6 +15,10 @@ class Images extends Model
     }
 
     public function category() : HasOne{
-        return $this->hasOne(User::class, 'image_id', 'id_image');
+        return $this->hasOne(Category::class, 'image_id', 'id_image');
+    }
+
+    public function collection() : HasOne{
+        return $this->hasOne(Collection::class, 'image_id', 'id_image');
     }
 }
