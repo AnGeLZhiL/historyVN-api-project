@@ -20,7 +20,7 @@ class CollectionsController extends Controller
          * Поиск сборников по заданому id города
          */
 
-        $collections = Collection::with('images')->findOrFail($id);
+        $collections = Collection::with('images')->where('city_id', $id)->get();
 
         /*
          * При указанном id после / возвращается список сборников определенного города
