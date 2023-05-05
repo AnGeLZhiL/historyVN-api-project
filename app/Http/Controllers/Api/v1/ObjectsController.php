@@ -20,7 +20,7 @@ class ObjectsController extends Controller
          * Получение списка объектов по заданому id каталога
          */
 
-        $objects = Objects::where('category_id', $id)->get();
+        $objects = Objects::with('images')->where('category_id', $id)->get();
 
         /*
          * Возвращает список объектов
