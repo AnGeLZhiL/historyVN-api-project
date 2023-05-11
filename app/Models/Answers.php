@@ -11,4 +11,13 @@ class Answers extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_answer';
+
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(
+            Questions::class,
+            'question_id',
+            'id_question'
+        );
+    }
 }

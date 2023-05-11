@@ -12,11 +12,10 @@ class QuestionsController extends Controller
 {
     public function getQuestions($id){
 
-        $questions = Questions::where('test_id', $id)->get();
-        $test = Tests::with('questions')->findOrFail($id);
+        $questions = Questions::with('answers')->where('test_id', $id)->get();
 
         return response()
-            ->json($test->questions)
+            ->json($questions)
             ->setStatusCode(200, 'Questions list');
     }
 

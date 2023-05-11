@@ -26,7 +26,7 @@ class TestsController extends Controller
 //    }
 
     public function getTest($id){
-        $test = Tests::where('id_test', $id)->get();
+        $test = Tests::with('questions')->where('id_test', $id)->get();
 
         return response()
             ->json($test)
