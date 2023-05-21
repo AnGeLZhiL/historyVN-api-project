@@ -5,15 +5,56 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserTestRequest;
 use App\Models\Tests;
 use App\Models\User;
 use App\Http\Requests\LoginUserRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+
+    public function userTestCreate(UserTestRequest $request){
+        $user = User::find(Auth::id());
+
+        if ($user) {
+//            UserTest::create(
+//                [
+//                    "test_id" => $request->test_id,
+//                    "user_id" => $request->user_id,
+//                    "passed" => $request->passed,
+//                    "mark" => $request->mark
+//                ]
+//            );
+
+            DB::table('user_test')->insert([
+                "test_id" => $request->test_id,
+                "user_id" => $user->id_user,
+                "passed" => $request->passed,
+                "mark" => $request->mark
+            ]);
+
+            return response()
+                ->json([
+                    "status" => true
+                ],200);
+        } else {
+
+            /*
+             * Возврат ответа JSON в случает неудачного добавления попытки прохождения теста.
+             * Возвращается статус false
+             */
+
+            return response()
+                ->json([
+                    "status" => false
+                ],401);
+        }
+    }
+
     /**
      * Регистрация пользователя через API
      * @param RegisterUserRequest $request
@@ -109,38 +150,51 @@ class UserController extends Controller
 
         $user = User::find(Auth::id());
 
-        /*
-         * Заполнение новыми значениями
-         */
+        if ($user){
+            /*
+            * Заполнение новыми значениями
+            */
 
-        $user->last_name = $request->last_name;
-        $user->first_name = $request->first_name;
-        $user->midlle_name = $request->midlle_name;
-        $user->login = $request->login;
-        $user->birthday = $request->birthday;
+            $user->last_name = $request->last_name;
+            $user->first_name = $request->first_name;
+            $user->midlle_name = $request->midlle_name;
+            $user->login = $request->login;
+            $user->birthday = $request->birthday;
 
-        /*
-         * Сохранение новых данных
-         */
+            /*
+             * Сохранение новых данных
+             */
 
-        $result = $user->save();
+            $result = $user->save();
 
-        /*
-         * Проверка
-         */
+            /*
+             * Проверка
+             */
 
-        if($result){
-            return response()
-                ->json([
-                    "status" => true
-                ])
-                ->setStatusCode(200, "Update");
+            if($result){
+                return response()
+                    ->json([
+                        "status" => true
+                    ])
+                    ->setStatusCode(200, "Update");
+            } else {
+                return response()
+                    ->json([
+                        "status" => false
+                    ])
+                    ->setStatusCode(401, "Not update");
+            }
         } else {
+
+            /*
+             * Возврат ответа JSON в случает неудачной авторизации.
+             * Возвращается статус false
+             */
+
             return response()
                 ->json([
                     "status" => false
-                ])
-                ->setStatusCode(401, "Not update");
+                ],401);
         }
     }
 

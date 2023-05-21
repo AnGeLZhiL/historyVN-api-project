@@ -12,9 +12,17 @@ class Images extends Model
     use HasFactory;
     protected $primaryKey = 'id_image';
 
+    /*
+     * Отношение к таблице users. Пользователь имеет одну картинку
+     */
+
     public function user() : HasOne{
         return $this->hasOne(User::class, 'image_id', 'id_image');
     }
+
+    /*
+     * Отношение к таблице categories. У категории одна картинка.
+     */
 
     public function category() : HasOne{
         return $this->hasOne(Category::class, 'image_id', 'id_image');
