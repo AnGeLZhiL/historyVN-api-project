@@ -18,41 +18,41 @@ class UserController extends Controller
 {
 
     public function userTestCreate(UserTestRequest $request){
-//        $user = User::find(Auth::id());
-//
-//        if ($user) {
-////            UserTest::create(
-////                [
-////                    "test_id" => $request->test_id,
-////                    "user_id" => $request->user_id,
-////                    "passed" => $request->passed,
-////                    "mark" => $request->mark
-////                ]
-////            );
-//
-//            DB::table('user_test')->insert([
-//                "test_id" => $request->test_id,
-//                "user_id" => $user->id_user,
-//                "passed" => $request->passed,
-//                "mark" => $request->mark
-//            ]);
-//
-//            return response()
-//                ->json([
-//                    "status" => true
-//                ],200);
-//        } else {
-//
-//            /*
-//             * Возврат ответа JSON в случает неудачного добавления попытки прохождения теста.
-//             * Возвращается статус false
-//             */
-//
-//            return response()
-//                ->json([
-//                    "status" => false
-//                ],401);
-//        }
+        $user = User::find(Auth::id());
+
+        if ($user) {
+//            UserTest::create(
+//                [
+//                    "test_id" => $request->test_id,
+//                    "user_id" => $request->user_id,
+//                    "passed" => $request->passed,
+//                    "mark" => $request->mark
+//                ]
+//            );
+
+            DB::table('user_test')->insert([
+                "test_id" => $request->test_id,
+                "user_id" => $user->id_user,
+                "passed" => $request->passed,
+                "mark" => $request->mark
+            ]);
+
+            return response()
+                ->json([
+                    "status" => true
+                ],200);
+        } else {
+
+            /*
+             * Возврат ответа JSON в случает неудачного добавления попытки прохождения теста.
+             * Возвращается статус false
+             */
+
+            return response()
+                ->json([
+                    "status" => false
+                ],401);
+        }
     }
 
     /**
