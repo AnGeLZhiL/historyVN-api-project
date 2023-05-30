@@ -30,6 +30,6 @@ class User extends Authenticatable
             'user_test',
             'user_id',
             'test_id'
-        );
+        )->withPivot('mark');
     }
 }
