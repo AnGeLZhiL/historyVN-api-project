@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\v1\CategoriesController;
 use App\Http\Controllers\Api\v1\CitiesController;
 use App\Http\Controllers\Api\v1\CollectionsController;
+use App\Http\Controllers\Api\v1\ImageUploadController;
 use App\Http\Controllers\Api\v1\ObjectsController;
 use App\Http\Controllers\Api\v1\QuestionsController;
 use App\Http\Controllers\Api\v1\TestsController;
@@ -82,3 +83,8 @@ Route::get('/test/{id}', [TestsController::class, 'getTest']);
 
 Route::get('/questions/{id}', [QuestionsController::class, 'getQuestions']);
 Route::get('/answers/{id}', [QuestionsController::class, 'getAnswers']);
+
+/*
+ * File Upload Routers
+ */
+Route::middleware('auth:api')->post('/user-img-upload', [ImageUploadController::class, 'imageUpload']);
