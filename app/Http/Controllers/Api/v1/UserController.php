@@ -182,7 +182,7 @@ class UserController extends Controller
                     ->json([
                         "status" => false
                     ])
-                    ->setStatusCode(401, "Not update");
+                    ->setStatusCode(421, "Not update");
             }
         } else {
 

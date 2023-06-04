@@ -58,6 +58,10 @@ Route::get('/collections/{id?}', [CollectionsController::class, 'getAll']);
  */
 
 Route::get('/cities', [CitiesController::class, 'getAll']);
+// Admin panel
+Route::middleware('auth:api')->post('/city-add', [CitiesController::class, 'cityAdd']);
+Route::middleware('auth:api')->post('/city-update', [CitiesController::class, 'cityUpdate']);
+Route::middleware('auth:api')->post('/city-delete', [CitiesController::class, 'cityDelete']);
 
 /*
  * Categories Routers
