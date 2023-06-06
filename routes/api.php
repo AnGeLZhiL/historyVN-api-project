@@ -52,7 +52,11 @@ Route::middleware('auth:api')->post('/user-test', [UserController::class, 'userT
  */
 
 Route::get('/collections/{id?}', [CollectionsController::class, 'getAll']);
-
+// Admin panel
+Route::middleware('auth:api')->post('/collection-add', [CollectionsController::class, 'collectionAdd']);
+Route::middleware('auth:api')->post('/collection-update', [CollectionsController::class, 'collectionUpdate']);
+Route::middleware('auth:api')->post('/collection-update-image', [ImageUploadController::class, 'collectionImageUpload']);
+Route::middleware('auth:api')->post('/collection-delete', [CollectionsController::class, 'collectionDelete']);
 /*
  * Cities Routers
  */

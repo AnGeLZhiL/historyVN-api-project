@@ -11,7 +11,9 @@ class Images extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_image';
-
+    protected $fillable = [
+        'image_url'
+    ];
     /*
      * Отношение к таблице users. Пользователь имеет одну картинку
      */

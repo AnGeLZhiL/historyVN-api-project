@@ -10,6 +10,11 @@ class Collection extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_collection';
+    protected $fillable = [
+        'name',
+        'city_id',
+        'image_id'
+    ];
 
     public function images() : BelongsTo{
         return $this->belongsTo(Images::class, 'image_id', 'id_image');
