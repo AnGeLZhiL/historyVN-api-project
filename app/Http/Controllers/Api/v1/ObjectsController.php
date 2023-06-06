@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ObjectAddRequest;
 use App\Models\Objects;
+use Exception;
 use Illuminate\Http\Request;
 
 class ObjectsController extends Controller
@@ -63,4 +65,24 @@ class ObjectsController extends Controller
 //            ->json($tests)
 //            ->setStatusCode(200, 'Tests list');
 //    }
+
+    public function objectAdd(ObjectAddRequest $request){
+        try {
+            $object = Objects::create([
+                "name" => $request->name,
+                "category_id" => $request->category_id,
+                "year" => $request->year,
+                "location" => $request->location,
+                "description" => $request->description,
+                "map_marker" => $request->map_marker
+            ]);
+            return response()
+                ->json(["status" => true, "id" => $object->id_object])
+                ->setStatusCode(200, "Add object");
+        } catch (Exception $e) {
+            return response()
+                ->json(["status" => false, "error" => $e])
+                ->setStatusCode(421, "Object not add");
+        }
+    }
 }

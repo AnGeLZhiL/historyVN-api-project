@@ -10,6 +10,14 @@ class Objects extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_object';
+    protected $fillable = [
+        'name',
+        'category_id',
+        'year',
+        'location',
+        'description',
+        'map_marker'
+    ];
 
     public function tests() : BelongsToMany
     {

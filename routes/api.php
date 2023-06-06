@@ -83,6 +83,8 @@ Route::middleware('auth:api')->post('/category-delete', [CategoriesController::c
 
 Route::get('/objects/{id}',[ObjectsController::class, 'getObjects']);
 Route::get('/object/{id}',[ObjectsController::class, 'getObject']);
+// Admin panel
+Route::middleware('auth:api')->post('/object-add', [ObjectsController::class, 'objectAdd']);
 
 /*
  * Tests Routers
