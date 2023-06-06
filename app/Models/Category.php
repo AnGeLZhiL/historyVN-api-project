@@ -10,6 +10,11 @@ class Category extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_category';
+    protected $fillable = [
+        'name',
+        'collection_id',
+        'image_id'
+    ];
 
     public function images() : BelongsTo{
         return $this->belongsTo(Images::class, 'image_id', 'id_image');

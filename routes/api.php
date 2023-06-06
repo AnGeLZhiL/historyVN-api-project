@@ -71,6 +71,11 @@ Route::middleware('auth:api')->post('/city-delete', [CitiesController::class, 'c
  * Categories Routers
  */
 Route::get('/categories/{id?}', [CategoriesController::class, 'getAll']);
+// Admin panel
+Route::middleware('auth:api')->post('/category-add', [CategoriesController::class, 'categoryAdd']);
+Route::middleware('auth:api')->post('/category-update', [CategoriesController::class, 'categoryUpdate']);
+Route::middleware('auth:api')->post('/category-update-image', [ImageUploadController::class, 'categoryImageUpload']);
+Route::middleware('auth:api')->post('/category-delete', [CategoriesController::class, 'categoryDelete']);
 
 /*
  * Objects Routers

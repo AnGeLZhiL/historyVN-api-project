@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Images;
 use App\Models\User;
@@ -102,6 +103,71 @@ class ImageUploadController extends Controller
                     ->json([
                         "status" => false
                     ], 401);
+            }
+        } catch (Exception $e){
+            return response()
+                ->json([
+                    "status" => false,
+                    "error" => $e
+                ])
+                ->setStatusCode(401, "Not update");
+        }
+    }
+
+    public function categoryImageUpload(Request $request){
+        try {
+            $category = Category::find($request->id_category);
+
+            if ($category) {
+                $image = Images::find($request->image_id);
+                if ($image) {
+                    $file_upload = $request->image_url->store('public/image/');
+                    $image->image_url = $file_upload;
+                    $result = $image->save();
+
+                    /*
+                     * Проверка
+                     */
+
+                    if ($result) {
+                        return response()
+                            ->json([
+                                "status" => true
+                            ])
+                            ->setStatusCode(200, "Update");
+                    } else {
+                        return response()
+                            ->json([
+                                "status" => false
+                            ])
+                            ->setStatusCode(401, "Not update");
+                    }
+                } else {
+
+                    /*
+                     * Возврат ответа JSON в случает неудачной авторизации.
+                     * Возвращается статус false
+                     */
+
+                    return response()
+                        ->json([
+                            "status" => false
+                        ])
+                        ->setStatusCode(401, "Not update");
+                }
+            } else {
+
+                /*
+                 * Возврат ответа JSON в случает неудачной авторизации.
+                 * Возвращается статус false
+                 */
+
+                return response()
+                    ->json([
+                        "status" => false,
+                        "error" => "Категория не найдена"
+                    ])
+                    ->setStatusCode(241, "Not update");
             }
         } catch (Exception $e){
             return response()
