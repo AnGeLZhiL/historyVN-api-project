@@ -85,6 +85,10 @@ Route::get('/objects/{id}',[ObjectsController::class, 'getObjects']);
 Route::get('/object/{id}',[ObjectsController::class, 'getObject']);
 // Admin panel
 Route::middleware('auth:api')->post('/object-add', [ObjectsController::class, 'objectAdd']);
+Route::middleware('auth:api')->post('/object-update', [ObjectsController::class, 'objectUpdate']);
+Route::middleware('auth:api')->post('/object-delete', [ObjectsController::class, 'objectDelete']);
+Route::middleware('auth:api')->post('/object-add-image', [ObjectsController::class, 'objectAddImage']);
+Route::middleware('auth:api')->post('/object-delete-image', [ObjectsController::class, 'objectDeleteImage']);
 
 /*
  * Tests Routers
