@@ -11,6 +11,10 @@ class Tests extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_test';
+    protected $fillable = [
+        'name',
+        'category_id'
+    ];
 
     public function questions(): HasMany
     {

@@ -95,7 +95,14 @@ Route::middleware('auth:api')->post('/object-delete-image', [ObjectsController::
  */
 Route::get('/testscat/{id}', [TestsController::class, 'getTests']);
 Route::get('/test/{id}', [TestsController::class, 'getTest']);
-
+// Admin panel
+Route::middleware('auth:api')->post('/test-add', [TestsController::class, 'testAdd']);
+Route::middleware('auth:api')->post('/test-update', [TestsController::class, 'testUpdate']);
+Route::middleware('auth:api')->post('/test-delete', [TestsController::class, 'testDelete']);
+// Test Object
+Route::middleware('auth:api')->post('/test-object-add', [TestsController::class, 'testObjectAdd']);
+Route::middleware('auth:api')->post('/test-object-update', [TestsController::class, 'testObjectUpdate']);
+Route::middleware('auth:api')->post('/test-object-delete', [TestsController::class, 'testObjectDelete']);
 /*
  * Question Routers
  */
