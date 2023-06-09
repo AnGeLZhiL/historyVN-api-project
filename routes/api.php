@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\AnswersController;
 use App\Http\Controllers\Api\v1\CategoriesController;
 use App\Http\Controllers\Api\v1\CitiesController;
 use App\Http\Controllers\Api\v1\CollectionsController;
@@ -101,14 +102,23 @@ Route::middleware('auth:api')->post('/test-update', [TestsController::class, 'te
 Route::middleware('auth:api')->post('/test-delete', [TestsController::class, 'testDelete']);
 // Test Object
 Route::middleware('auth:api')->post('/test-object-add', [TestsController::class, 'testObjectAdd']);
-Route::middleware('auth:api')->post('/test-object-update', [TestsController::class, 'testObjectUpdate']);
-Route::middleware('auth:api')->post('/test-object-delete', [TestsController::class, 'testObjectDelete']);
 /*
  * Question Routers
  */
 
 Route::get('/questions/{id}', [QuestionsController::class, 'getQuestions']);
 Route::get('/answers/{id}', [QuestionsController::class, 'getAnswers']);
+// Admin panel
+Route::middleware('auth:api')->post('/question-add', [QuestionsController::class, 'questionAdd']);
+Route::middleware('auth:api')->post('/question-update', [QuestionsController::class, 'questiontUpdate']);
+Route::middleware('auth:api')->post('/question-delete', [QuestionsController::class, 'questionDelete']);
+
+/*
+ * Answer Routers
+ */
+Route::middleware('auth:api')->post('/answer-add', [AnswersController::class, 'answerAdd']);
+Route::middleware('auth:api')->post('/answer-update', [AnswersController::class, 'answerUpdate']);
+Route::middleware('auth:api')->post('/answer-delete', [AnswersController::class, 'answerDelete']);
 
 /*
  * File Upload Routers

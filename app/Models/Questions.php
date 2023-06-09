@@ -12,6 +12,10 @@ class Questions extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_question';
+    protected $fillable = [
+        'text_question',
+        'test_id'
+    ];
 
     public function answers(): HasMany
     {

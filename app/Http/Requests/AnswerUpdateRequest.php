@@ -4,16 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TestObjectUpdateRequest extends FormRequest
+class AnswerUpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +14,9 @@ class TestObjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "text_answer" => ["required"],
+            "correctness" => ["required"],
+            "id_answer" =>["required"]
         ];
     }
 }

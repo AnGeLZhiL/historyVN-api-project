@@ -16,7 +16,7 @@ class CategoryAddRequest extends FormRequest
         return [
             "collection_id" => ["required"],
             "name" => ["required"],
-            "image_url" => ["required"],
+            "image_url" => ["required"]
         ];
     }
 }

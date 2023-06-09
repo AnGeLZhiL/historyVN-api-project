@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TestObjectAddRequest extends FormRequest
+class QuestionDeleteRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,7 @@ class TestObjectAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required"],
-            "category_id" => ["required"],
-            "object_id" => ["required"],
+            "id_question" => ["required"]
         ];
     }
 }
