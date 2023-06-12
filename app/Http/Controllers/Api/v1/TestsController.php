@@ -18,7 +18,7 @@ class TestsController extends Controller
 {
     public function getTests($id){
 
-        $tests = Tests::where('id_test', $id)->get();
+        $tests = Tests::where('category_id', $id)->get();
 
         return response()
             ->json($tests)

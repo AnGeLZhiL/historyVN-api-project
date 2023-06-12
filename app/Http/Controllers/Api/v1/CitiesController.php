@@ -37,12 +37,15 @@ class CitiesController extends Controller
 
     public function cityAdd(CityAddRequest $request){
         try {
-            DB::table('cities')->insert([
+            $city = City::create([
                 "name" => $request->name
             ]);
 
             return response()
-                ->json(["status" => true])
+                ->json([
+                    "status" => true,
+                    "id" => $city->id_city
+                ])
                 ->setStatusCode(200, "City add");
         } catch (Exception $e){
             return response()

@@ -212,4 +212,10 @@ class UserController extends Controller
             ->json($user)
             ->setStatusCode(200, 'User informations');
     }
+
+    public function usersGet(){
+        return response()
+            ->json(User::with('tests')->get())
+            ->setStatusCode(200, "Cities list");
+    }
 }
