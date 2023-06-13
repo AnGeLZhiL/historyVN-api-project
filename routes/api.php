@@ -47,6 +47,10 @@ Route::middleware('auth:api')->put('/user-update', [UserController::class, 'user
 Route::middleware('auth:api')->post('/user-test', [UserController::class, 'userTestCreate']);
 // Admin panel
 Route::middleware('auth:api')->get('/users', [UserController::class, 'usersGet']);
+Route::middleware('auth:api')->put('/admin-user-update', [UserController::class, 'userAdminUpdate']);
+Route::middleware('auth:api')->put('/password-update', [UserController::class, 'userPasswordUpdate']);
+Route::middleware('auth:api')->post('/admin-user-delete', [UserController::class, 'userAdminDelete']);
+Route::middleware('auth:api')->post('/user-delete', [UserController::class, 'userDelete']);
 
 //Route::middleware('auth')->get('/testsuser', [UserController::class, 'userTests']);
 

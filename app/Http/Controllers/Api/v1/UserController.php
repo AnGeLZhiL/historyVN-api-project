@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminUserUpdateRequest;
+use App\Http\Requests\PasswordUserUpdateRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\TestDeleteRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserDeleteRequest;
 use App\Http\Requests\UserTestRequest;
 use App\Models\Tests;
 use App\Models\User;
 use App\Http\Requests\LoginUserRequest;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -217,5 +222,159 @@ class UserController extends Controller
         return response()
             ->json(User::with('tests')->get())
             ->setStatusCode(200, "Cities list");
+    }
+
+    public function userAdminUpdate(AdminUserUpdateRequest $request){
+        /*
+         * Поиск пользователя по введенному токену
+         */
+
+        $user = User::find($request->id_user);
+
+        if ($user){
+            /*
+            * Заполнение новыми значениями
+            */
+
+            $user->last_name = $request->last_name;
+            $user->first_name = $request->first_name;
+            $user->midlle_name = $request->midlle_name;
+            $user->login = $request->login;
+            $user->birthday = $request->birthday;
+
+            /*
+             * Сохранение новых данных
+             */
+
+            $result = $user->save();
+
+            /*
+             * Проверка
+             */
+
+            if($result){
+                return response()
+                    ->json([
+                        "status" => true
+                    ])
+                    ->setStatusCode(200, "Update");
+            } else {
+                return response()
+                    ->json([
+                        "status" => false
+                    ])
+                    ->setStatusCode(421, "Not update");
+            }
+        } else {
+
+            /*
+             * Возврат ответа JSON в случает неудачной авторизации.
+             * Возвращается статус false
+             */
+
+            return response()
+                ->json([
+                    "status" => false
+                ],401);
+        }
+    }
+
+    public function userPasswordUpdate(PasswordUserUpdateRequest $request){
+        /*
+         * Поиск пользователя по введенному токену
+         */
+
+        $user = User::find(Auth::id());
+
+        if ($user){
+            /*
+            * Заполнение новыми значениями
+            */
+
+            $user->password = $request->password;
+
+            /*
+             * Сохранение новых данных
+             */
+
+            $result = $user->save();
+
+            /*
+             * Проверка
+             */
+
+            if($result){
+                return response()
+                    ->json([
+                        "status" => true
+                    ])
+                    ->setStatusCode(200, "Update");
+            } else {
+                return response()
+                    ->json([
+                        "status" => false
+                    ])
+                    ->setStatusCode(421, "Not update");
+            }
+        } else {
+
+            /*
+             * Возврат ответа JSON в случает неудачной авторизации.
+             * Возвращается статус false
+             */
+
+            return response()
+                ->json([
+                    "status" => false
+                ],401);
+        }
+    }
+
+    public function userAdminDelete(UserDeleteRequest $request){
+        try {
+            $user = User::find($request->id_user);
+
+            if ($user){
+
+                $user->delete();
+
+                return response()
+                    ->json([
+                        "status" => true
+                    ])
+                    ->setStatusCode(200, "Test delete");
+            }
+        } catch (Exception $e){
+            return response()
+                ->json([
+                    "status" => false,
+                    "error" => $e
+                ])
+                ->setStatusCode(421, "Test not delete");
+        }
+    }
+
+    public function userDelete(){
+        try {
+            $user = User::find(Auth::id());
+
+            if ($user){
+
+                $user->delete();
+
+                return response()
+                    ->json([
+                        "status" => true
+                    ])
+                    ->setStatusCode(200, "Test delete");
+            }
+        } catch (Exception $e){
+            return response()
+                ->json([
+                    "status" => false,
+                    "error" => $e
+                ])
+                ->setStatusCode(421, "Test not delete");
+        }
     }
 }
