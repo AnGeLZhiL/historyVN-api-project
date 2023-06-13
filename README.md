@@ -1,3 +1,22 @@
+Проверить работу API можно с помощью Postman.
+Примеры запросов:
+1. Запрос на авторизацию POST:
+    ссылка - http://angeli3q.beget.tech/public/api/login;
+    тело запроса:
+        {
+            "login": "angelina@mail.ru",
+            "password": "angelina"
+        }
+      ответ: 200 - успешная авторизация, 401 - аккаунт не найден.
+2. Запрос на вывод городов - GET:
+    ссылка - http://angeli3q.beget.tech/public/api/cities.
+3. Запрос на вывод объектов выбранной категории - GET:
+    ссылка - http://angeli3q.beget.tech/public/api/objects/1.
+4. Запрос на получение пройденных тестов у авторезированного пользователя:
+    ссылка - http://angeli3q.beget.tech/public/api/testsuser;
+    bearer token - Krur2fJOudcWI8c5Xtd4l2LXMLv122yGi5d53cmeUDcwQ14haclHQkFhiFc5zx0DHIG3wpuE8fCDvvIhOiYlQ7UzpHsdZ1DqP3yJ1GQbAEIqmx6BZqVwvdzHCUP2b57O07159aeUxr0T5vJdC9rVt2cIfxz27mpRsZnEjtjFB5zdoKLvos2B1l3tKBHESM07ggK4ZdN4.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
